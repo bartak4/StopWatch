@@ -7,19 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B9B2FAE2637EF43009F9A35 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B2FAD2637EF43009F9A35 /* Time.swift */; };
+		5B9B2FB626395774009F9A35 /* Lap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B2FB526395773009F9A35 /* Lap.swift */; };
 		5BB17EB026372D02005397D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB17EAF26372D02005397D6 /* AppDelegate.swift */; };
 		5BB17EB226372D02005397D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB17EB126372D02005397D6 /* SceneDelegate.swift */; };
-		5BB17EB426372D02005397D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB17EB326372D02005397D6 /* ViewController.swift */; };
+		5BB17EB426372D02005397D6 /* StopWatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB17EB326372D02005397D6 /* StopWatchController.swift */; };
 		5BB17EB726372D02005397D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BB17EB526372D02005397D6 /* Main.storyboard */; };
 		5BB17EB926372D05005397D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BB17EB826372D05005397D6 /* Assets.xcassets */; };
 		5BB17EBC26372D05005397D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BB17EBA26372D05005397D6 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B9B2FAD2637EF43009F9A35 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		5B9B2FB526395773009F9A35 /* Lap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lap.swift; sourceTree = "<group>"; };
 		5BB17EAC26372D02005397D6 /* StopWatch 1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StopWatch 1.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BB17EAF26372D02005397D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5BB17EB126372D02005397D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5BB17EB326372D02005397D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5BB17EB326372D02005397D6 /* StopWatchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchController.swift; sourceTree = "<group>"; };
 		5BB17EB626372D02005397D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5BB17EB826372D05005397D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BB17EBB26372D05005397D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,13 +62,39 @@
 			children = (
 				5BB17EAF26372D02005397D6 /* AppDelegate.swift */,
 				5BB17EB126372D02005397D6 /* SceneDelegate.swift */,
-				5BB17EB326372D02005397D6 /* ViewController.swift */,
-				5BB17EB526372D02005397D6 /* Main.storyboard */,
-				5BB17EB826372D05005397D6 /* Assets.xcassets */,
+				5BB17EC42637450E005397D6 /* Model */,
+				5BB17EC62637453F005397D6 /* Controller */,
+				5BB17EC52637451A005397D6 /* View */,
 				5BB17EBA26372D05005397D6 /* LaunchScreen.storyboard */,
+				5BB17EB826372D05005397D6 /* Assets.xcassets */,
 				5BB17EBD26372D05005397D6 /* Info.plist */,
 			);
 			path = "StopWatch 1.0";
+			sourceTree = "<group>";
+		};
+		5BB17EC42637450E005397D6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5B9B2FAD2637EF43009F9A35 /* Time.swift */,
+				5B9B2FB526395773009F9A35 /* Lap.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5BB17EC52637451A005397D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5BB17EB526372D02005397D6 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5BB17EC62637453F005397D6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5BB17EB326372D02005397D6 /* StopWatchController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +167,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BB17EB426372D02005397D6 /* ViewController.swift in Sources */,
+				5B9B2FAE2637EF43009F9A35 /* Time.swift in Sources */,
+				5BB17EB426372D02005397D6 /* StopWatchController.swift in Sources */,
 				5BB17EB026372D02005397D6 /* AppDelegate.swift in Sources */,
+				5B9B2FB626395774009F9A35 /* Lap.swift in Sources */,
 				5BB17EB226372D02005397D6 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,7 +328,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.marekbartak.StopWatch-1-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -315,7 +347,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.marekbartak.StopWatch-1-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
