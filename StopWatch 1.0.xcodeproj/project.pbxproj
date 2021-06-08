@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B9B2FAE2637EF43009F9A35 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B2FAD2637EF43009F9A35 /* Time.swift */; };
 		5B9B2FB626395774009F9A35 /* Lap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B2FB526395773009F9A35 /* Lap.swift */; };
 		5BB17EB026372D02005397D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB17EAF26372D02005397D6 /* AppDelegate.swift */; };
 		5BB17EB226372D02005397D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB17EB126372D02005397D6 /* SceneDelegate.swift */; };
@@ -18,7 +17,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5B9B2FAD2637EF43009F9A35 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		5B9B2FB526395773009F9A35 /* Lap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lap.swift; sourceTree = "<group>"; };
 		5BB17EAC26372D02005397D6 /* StopWatch 1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StopWatch 1.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BB17EAF26372D02005397D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 		5BB17EC42637450E005397D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5B9B2FAD2637EF43009F9A35 /* Time.swift */,
 				5B9B2FB526395773009F9A35 /* Lap.swift */,
 			);
 			path = Model;
@@ -167,7 +164,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B9B2FAE2637EF43009F9A35 /* Time.swift in Sources */,
 				5BB17EB426372D02005397D6 /* StopWatchController.swift in Sources */,
 				5BB17EB026372D02005397D6 /* AppDelegate.swift in Sources */,
 				5B9B2FB626395774009F9A35 /* Lap.swift in Sources */,

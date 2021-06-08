@@ -10,6 +10,6 @@ import Foundation
 struct Lap {
     let number: Int
     let start: Int
-    var leght: Int? // v době kdy kolo začíná, ještě neznám jeho délku
+    var leght: Int?
         
 }

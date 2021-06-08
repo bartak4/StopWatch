@@ -22,28 +22,49 @@ class StopWatchViewController: UIViewController {
             timeLabel.font = timeLabel.font.monospacedDigitFont
         }
     }
-
+    
     var timer = Timer()
-    var time = Time(startTimeInHundredth: 0)
     var watchIsCounting = false
     var laps: [Lap] = []
     var lapNumber = 0
     var labTimes = [Int]()
-
-
+    var startTimeInHundredth: Int = 0
+    var currentTimeInHundredth: Int {
+        get {
+            Int(CFAbsoluteTimeGetCurrent()*100)
+        }
+    }
+    var displayTime: Int {
+        get {
+            currentTimeInHundredth - startTimeInHundredth
+        }
+    }
+    func getTimeString(hundredts: Int) -> String {
+        let hundredths = hundredts % 100
+        let seconds = ((hundredts - (hundredts % 100))/100) % 60
+        let minutes = ((hundredts - (hundredts % 100))/6000) % 60
+        let hours = ((hundredts - (hundredts % 100))/360000) % 60
+        let stringTimeWithoutHours = String(format: "%02d", minutes) + ":" + String(format: "%02d", seconds) + "," + String(format: "%02d", hundredths)
+        if hours == 0 {
+            return stringTimeWithoutHours
+        } else {
+            return String(hours) + ":" + stringTimeWithoutHours
+        }
+    }
     func updateUI() {
-        timeLabel.text = time.getTimeString(hundredts: time.displayTime)
+        timeLabel.text = getTimeString(hundredts: displayTime)
         tableView.reloadData()
     }
     func lapAppend() {
         lapNumber = lapNumber + 1
-        let lap = Lap(number: lapNumber, start: time.currentTimeInHundredth, leght: nil)
+        let lap = Lap(number: lapNumber, start: currentTimeInHundredth, leght: nil)
         laps.append(lap)
     }
     func lapGetLeght () {
-        laps[lapNumber-1].leght = time.displayTime - labTimes.reduce(0,+)
-        labTimes.append(laps[lapNumber-1].leght!)
-    
+        laps[lapNumber-1].leght = displayTime - labTimes.reduce(0,+)
+        if let labTime = laps[lapNumber-1].leght {
+            labTimes.append(labTime)
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,40 +72,40 @@ class StopWatchViewController: UIViewController {
         startAndStopButton.layer.cornerRadius = 0.5 * startAndStopButton.bounds.size.height
         labAndResetButton.layer.cornerRadius = 0.5 * labAndResetButton.bounds.size.width
     }
-
+    
     @IBAction func startStopPressed(_ sender: UIButton) {
         if watchIsCounting == false {
-    // Start
+            // Start
             if lapNumber == 0 {
                 lapAppend()
             }
-            time.startTimeInHundredth = time.currentTimeInHundredth - (laps[lapNumber-1].leght ?? 0) 
+            startTimeInHundredth = currentTimeInHundredth - (laps[lapNumber-1].leght ?? 0)
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
             startAndStopButton.setTitle("Stop", for: .normal)
             labAndResetButton.setTitle("Lap", for: .normal)
             labAndResetButton.isEnabled = true
         } else {
-    // Stop
-            laps[lapNumber-1].leght = time.currentTimeInHundredth - time.startTimeInHundredth 
+            // Stop
+            laps[lapNumber-1].leght = currentTimeInHundredth - startTimeInHundredth
             timer.invalidate()
             startAndStopButton.setTitle("Start", for: .normal)
             labAndResetButton.setTitle("Reset", for: .normal)
         }
         watchIsCounting = !watchIsCounting
-        }
-
+    }
+    
     @IBAction func lapResetPressed(_ sender: UIButton) {
         if watchIsCounting == false {
-    // Reset
+            // Reset
             laps = []
-            time.startTimeInHundredth = 0
+            startTimeInHundredth = 0
             lapNumber = 0
             tableView.reloadData()
-            timeLabel.text = time.getTimeString(hundredts: 0)
+            timeLabel.text = getTimeString(hundredts: 0)
             labAndResetButton.isEnabled = false
             labTimes = []
         } else {
-    // Lap
+            // Lap
             lapGetLeght()
             lapAppend()
         }
@@ -102,38 +123,37 @@ extension StopWatchViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
-        let order = lapNumber - indexPath.row // aby byly správně seřazeny (od zhora dolů)
+        let order = lapNumber - indexPath.row
         cell.detailTextLabel?.font = cell.detailTextLabel?.font.monospacedDigitFont
         cell.textLabel?.text = "Lab " + String(order)
         if indexPath.row == 0 {
-        // první řádek
+            // první řádek
             let sumLeght = labTimes.reduce(0,+)
-            let firstCell = time.displayTime - sumLeght
-            cell.detailTextLabel?.text = time.getTimeString(hundredts: firstCell)
+            let firstCell = displayTime - sumLeght
+            cell.detailTextLabel?.text = getTimeString(hundredts: firstCell)
         } else {
-        // další řádky
-            let otherCell = laps[order-1].leght
-            cell.detailTextLabel?.text = time.getTimeString(hundredts: otherCell!)
+            // další řádky
             cell.detailTextLabel?.textColor = UIColor.black
             cell.textLabel?.textColor = UIColor.black
-        // barevně rozlišené největší a nejkratší kolo
-            if lapNumber >= 3 {
-                if otherCell == labTimes.max() {
-                    cell.detailTextLabel?.textColor = UIColor.systemRed
-                    cell.textLabel?.textColor = UIColor.systemRed
-                } else if otherCell == labTimes.min() {
-                    cell.detailTextLabel?.textColor = UIColor.systemGreen
-                    cell.textLabel?.textColor = UIColor.systemGreen
+            if let otherCell = laps[order-1].leght {
+                cell.detailTextLabel?.text = getTimeString(hundredts: otherCell)
+            // barevně rozlišené největší a nejkratší kolo
+                if lapNumber >= 3 {
+                    if otherCell == labTimes.max() {
+                        cell.detailTextLabel?.textColor = UIColor.systemRed
+                        cell.textLabel?.textColor = UIColor.systemRed
+                    } else if otherCell == labTimes.min() {
+                        cell.detailTextLabel?.textColor = UIColor.systemGreen
+                        cell.textLabel?.textColor = UIColor.systemGreen
+                    }
                 }
             }
         }
         return cell
     }
-
 }
 
 // MARK: - Extension UIFont
-
 extension UIFont {
     var monospacedDigitFont: UIFont {
         let newFontDescriptor = fontDescriptor.monospacedDigitFontDescriptor
@@ -141,13 +161,12 @@ extension UIFont {
     }
 }
 
-private extension UIFontDescriptor {
+extension UIFontDescriptor {
     var monospacedDigitFontDescriptor: UIFontDescriptor {
-        let fontDescriptorFeatureSettings = [[UIFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType,
-                                              UIFontDescriptor.FeatureKey.typeIdentifier: kMonospacedNumbersSelector]]
+        let fontDescriptorFeatureSettings = [[UIFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType, UIFontDescriptor.FeatureKey.typeIdentifier: kMonospacedNumbersSelector]]
         let fontDescriptorAttributes = [UIFontDescriptor.AttributeName.featureSettings: fontDescriptorFeatureSettings]
         let fontDescriptor = self.addingAttributes(fontDescriptorAttributes)
         return fontDescriptor
     }
 }
-    
+
